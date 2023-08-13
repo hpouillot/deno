@@ -1,7 +1,7 @@
 # Copyright 2018-2023 the Deno authors. All rights reserved. MIT license.
 
 [package]
-name = "deno"
+name = "deno_cli"
 version = "1.36.1"
 authors.workspace = true
 default-run = "deno"
@@ -10,6 +10,10 @@ exclude = ["tests/testdata/npm/registry/*"]
 license.workspace = true
 repository.workspace = true
 description = "Provides the deno executable"
+
+[lib]
+name = "deno_cli"
+path = "lib.rs"
 
 [[bin]]
 name = "deno"
@@ -32,8 +36,13 @@ path = "./bench/lsp_bench_standalone.rs"
 __runtime_js_sources = ["deno_runtime/__runtime_js_sources"]
 
 [build-dependencies]
-deno_runtime = { workspace = true, features = ["snapshot_from_snapshot", "include_js_files_for_snapshotting"] }
-deno_core = { workspace = true, features = ["include_js_files_for_snapshotting"] }
+deno_runtime = { workspace = true, features = [
+    "snapshot_from_snapshot",
+    "include_js_files_for_snapshotting",
+] }
+deno_core = { workspace = true, features = [
+    "include_js_files_for_snapshotting",
+] }
 lazy-regex.workspace = true
 serde.workspace = true
 serde_json.workspace = true
@@ -45,16 +54,34 @@ winapi.workspace = true
 winres.workspace = true
 
 [dependencies]
-deno_ast = { workspace = true, features = ["bundler", "cjs", "codegen", "dep_graph", "module_specifier", "proposal", "react", "sourcemap", "transforms", "typescript", "view", "visit"] }
+deno_ast = { workspace = true, features = [
+    "bundler",
+    "cjs",
+    "codegen",
+    "dep_graph",
+    "module_specifier",
+    "proposal",
+    "react",
+    "sourcemap",
+    "transforms",
+    "typescript",
+    "view",
+    "visit",
+] }
 deno_cache_dir = "=0.5.0"
-deno_core = { workspace = true, features = ["include_js_files_for_snapshotting"] }
+deno_core = { workspace = true, features = [
+    "include_js_files_for_snapshotting",
+] }
 deno_doc = "=0.64.0"
 deno_emit = "=0.25.0"
 deno_graph = "=0.50.0"
 deno_lint = { version = "=0.49.0", features = ["docs"] }
 deno_lockfile.workspace = true
 deno_npm.workspace = true
-deno_runtime = { workspace = true, features = ["dont_create_runtime_snapshot", "include_js_files_for_snapshotting"] }
+deno_runtime = { workspace = true, features = [
+    "dont_create_runtime_snapshot",
+    "include_js_files_for_snapshotting",
+] }
 deno_semver.workspace = true
 deno_task_shell = "=0.13.1"
 eszip = "=0.49.0"
@@ -102,7 +129,9 @@ quick-junit = "^0.3.3"
 rand = { workspace = true, features = ["small_rng"] }
 regex.workspace = true
 ring.workspace = true
-rustyline = { version = "=10.0.0", default-features = false, features = ["custom-bindings"] }
+rustyline = { version = "=10.0.0", default-features = false, features = [
+    "custom-bindings",
+] }
 rustyline-derive = "=0.7.0"
 serde.workspace = true
 serde_repr.workspace = true
@@ -124,7 +153,16 @@ zstd.workspace = true
 [target.'cfg(windows)'.dependencies]
 fwdansi.workspace = true
 junction = "=0.2.0"
-winapi = { workspace = true, features = ["knownfolders", "mswsock", "objbase", "shlobj", "tlhelp32", "winbase", "winerror", "winsock2"] }
+winapi = { workspace = true, features = [
+    "knownfolders",
+    "mswsock",
+    "objbase",
+    "shlobj",
+    "tlhelp32",
+    "winbase",
+    "winerror",
+    "winsock2",
+] }
 
 [target.'cfg(unix)'.dependencies]
 nix.workspace = true
